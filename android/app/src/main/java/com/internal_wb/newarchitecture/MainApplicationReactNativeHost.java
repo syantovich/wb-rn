@@ -1,4 +1,4 @@
-package com.booky_rn.newarchitecture;
+package com.internal_wb.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.booky_rn.BuildConfig;
-import com.booky_rn.newarchitecture.components.MainComponentsRegistry;
-import com.booky_rn.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.internal_wb.BuildConfig;
+import com.internal_wb.newarchitecture.components.MainComponentsRegistry;
+import com.internal_wb.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

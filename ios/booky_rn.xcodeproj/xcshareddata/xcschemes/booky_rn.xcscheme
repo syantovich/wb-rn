@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "booky_rn.app"
-               BlueprintName = "booky_rn"
-               ReferencedContainer = "container:booky_rn.xcodeproj">
+               BuildableName = "internal_wb.app"
+               BlueprintName = "internal_wb"
+               ReferencedContainer = "container:internal_wb.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "booky_rnTests.xctest"
-               BlueprintName = "booky_rnTests"
-               ReferencedContainer = "container:booky_rn.xcodeproj">
+               BuildableName = "internal_wbTests.xctest"
+               BlueprintName = "internal_wbTests"
+               ReferencedContainer = "container:internal_wb.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "booky_rn.app"
-            BlueprintName = "booky_rn"
-            ReferencedContainer = "container:booky_rn.xcodeproj">
+            BuildableName = "internal_wb.app"
+            BlueprintName = "internal_wb"
+            ReferencedContainer = "container:internal_wb.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "booky_rn.app"
-            BlueprintName = "booky_rn"
-            ReferencedContainer = "container:booky_rn.xcodeproj">
+            BuildableName = "internal_wb.app"
+            BlueprintName = "internal_wb"
+            ReferencedContainer = "container:internal_wb.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

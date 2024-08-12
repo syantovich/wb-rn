@@ -1,8 +1,9 @@
-package com.booky_rn;
+package com.internal_wb;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "booky_rn";
+    return "internal_wb";
   }
 
   /**
@@ -40,9 +41,14 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected boolean isConcurrentRootEnabled() {
-      // If you opted-in for the New Architecture, we enable Concurrent Root (i.e. React 18).
+      // If you opted-in for the New Architecture, we enable Included build 'C:\Users\l9xam\Desktop\Work\wbCustom\node_modules\@react-native\gradle-plugin' does not exist.Concurrent Root (i.e. React 18).
       // More on this on https://reactjs.org/blog/2022/03/29/react-v18.html
       return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     }
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }

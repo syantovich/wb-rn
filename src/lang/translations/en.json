@@ -1,0 +1,31 @@
+{
+  "screens": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "login": "Login",
+      "forgotPassword": "Forgot Password?",
+      "register": "Register",
+      "greeting": "Welcome to our application!",
+      "error": "Login error"
+    }
+  },
+  "forms": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 8 characters long",
+      "invalid": "Invalid email or password",
+      "invalidEmail": "Invalid email",
+      "registrationFailed": "Registration failed",
+      "loginFailed": "Login failed",
+      "logoutFailed": "Logout failed"
+    }
+  },
+  "errors": {
+    "failedLogin": "Failed to login",
+    "failedRegister": "Failed to register",
+    "logoutFailed": "Failed to logout"
+  }
+}
