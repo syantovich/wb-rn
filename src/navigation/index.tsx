@@ -1,7 +1,8 @@
-import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {StackNavigation, StackScreensParamsType} from './stackNavigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React from 'react';
+
+import {StackNavigation, StackScreensParamsType} from './stackNavigation';
 
 export type RootStackParamList = NativeStackScreenProps<StackScreensParamsType>;
 

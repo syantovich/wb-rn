@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
 import {TFunction} from 'i18next';
+import * as Yup from 'yup';
 
 const loginValidationSchema = (t: TFunction) =>
   Yup.object().shape({

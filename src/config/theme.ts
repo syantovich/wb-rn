@@ -1,5 +1,5 @@
-import {ThemeProp} from 'react-native-paper/lib/typescript/types';
 import {DefaultTheme} from 'react-native-paper';
+import {ThemeProp} from 'react-native-paper/lib/typescript/types';
 
 const theme: ThemeProp = {
   ...DefaultTheme,

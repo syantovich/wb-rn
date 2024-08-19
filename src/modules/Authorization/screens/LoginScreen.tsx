@@ -1,16 +1,21 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Formik} from 'formik';
+import {observer} from 'mobx-react-lite';
 import React, {memo} from 'react';
 import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native';
-import {Formik} from 'formik';
-import {ILoginData} from '../../types/auth';
-import {Button, MD3Theme, Text, TextInput, useTheme} from 'react-native-paper';
-import commonStyles from '../../config/styles';
-import {useTranslation} from 'react-i18next';
-import loginValidationSchema from '../../config/validations/loginValidationShema';
-import {observer} from 'mobx-react-lite';
+import {MD3Theme, Text, useTheme} from 'react-native-paper';
 import Toast from 'react-native-toast-message';
-import {StackScreensParamsType} from '../../navigation/stackNavigation';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import authService from '../../services/AuthService';
+
+import FormikTextInput from '../../../components/formik/FormikTextInput';
+import CustomButton from '../../../components/ui/CustomButton';
+import Icon from '../../../components/ui/Icon';
+import commonStyles from '../../../config/styles';
+import {StackScreensParamsType} from '../../../navigation/stackNavigation';
+import {userStore} from '../../../store';
+import {ILoginData} from '../../../types/auth';
+import useThisModuleTranslation from '../hooks/useThisModuleTranslation';
+import authService from '../services/AuthService';
+import loginValidationSchema from '../validation/loginValidationShema';
 
 const initialValues: ILoginData = {
   email: '',
@@ -21,17 +26,18 @@ const LoginScreen = observer(
   ({navigation}: NativeStackScreenProps<StackScreensParamsType>) => {
     const theme = useTheme();
     const styles = makeStyles(theme);
-    const {t} = useTranslation();
+    const {t} = useThisModuleTranslation();
     const onSubmit = async (values: ILoginData) => {
-      const error = await authService.login(values, t);
+      const {error, data} = await authService.login(values, t);
       if (error) {
         Toast.show({
           type: 'error',
           text1: t('screens.login.error'),
           text2: error,
         });
+      } else {
+        userStore.setUser(data);
       }
-      console.log(values);
     };
 
     return (
@@ -42,41 +48,37 @@ const LoginScreen = observer(
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={loginValidationSchema(t)}>
-          {({handleChange, handleSubmit, touched, errors}) => {
+          {({handleSubmit}) => {
             return (
               <View style={[styles.formWrapper, commonStyles.maxWidth]}>
                 <Text style={styles.greeting}>
                   {t('screens.login.greeting')}
                 </Text>
-                <TextInput
-                  left={<TextInput.Icon icon="account" />}
+                <FormikTextInput
+                  name="email"
+                  label={t('screens.login.email')}
+                  left={<Icon icon="account" />}
                   style={styles.input}
-                  onChangeText={handleChange('email')}
-                  placeholder={t('screens.login.email')}
                 />
-                {touched.email && errors.email && (
-                  <Text style={commonStyles.errorText}>{errors.email}</Text>
-                )}
-                <TextInput
-                  style={styles.input}
+                <FormikTextInput
+                  name="password"
+                  label={t('screens.login.password')}
                   secureTextEntry
-                  left={<TextInput.Icon icon="eye" />}
-                  onChangeText={handleChange('password')}
-                  placeholder={t('screens.login.password')}
+                  left={<Icon icon="eye" />}
+                  style={styles.input}
                 />
-                {touched.password && errors.password && (
-                  <Text style={commonStyles.errorText}>{errors.password}</Text>
-                )}
-                <Button style={styles.button} onPress={handleSubmit}>
-                  {t('screens.login.login')}
-                </Button>
-                <Button
+                <CustomButton
+                  style={styles.button}
+                  onPress={handleSubmit}
+                  label={t('screens.login.login')}
+                />
+                <CustomButton
                   style={styles.button}
                   onPress={() => {
                     navigation.navigate('Register');
-                  }}>
-                  {t('screens.login.register')}
-                </Button>
+                  }}
+                  label={t('screens.login.register')}
+                />
               </View>
             );
           }}

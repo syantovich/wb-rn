@@ -1,0 +1,60 @@
+{
+  "errors": {
+    "failedLogin": "Failed to login",
+    "failedRegister": "Failed to register",
+    "failedSendVerification": "Failed to send verification code",
+    "failedValidateVerification": "Failed to validate verification code",
+    "logoutFailed": "Failed to logout"
+  },
+  "forms": {
+    "validation": {
+      "email": "Please enter a valid email address",
+      "invalid": "Invalid email or password",
+      "invalidEmail": "Invalid email",
+      "length": "Code must be exactly ${length} characters",
+      "loginFailed": "Login failed",
+      "logoutFailed": "Logout failed",
+      "password": "Password must be at least 8 characters long",
+      "registrationFailed": "Registration failed",
+      "required": "This field is required"
+    }
+  },
+  "screens": {
+    "home": {
+      "greeting": "Welcome to the Home Screen"
+    },
+    "login": {
+      "email": "Email",
+      "error": "Login error",
+      "forgotPassword": "Forgot Password?",
+      "greeting": "Welcome to our application!",
+      "login": "Login",
+      "password": "Password",
+      "register": "Create Account",
+      "title": "Login"
+    },
+    "register": {
+      "confirmPassword": "Confirm Password",
+      "email": "Email",
+      "error": "Registration error",
+      "greeting": "Create your account",
+      "login": "I already have an account",
+      "name": "Name",
+      "password": "Password",
+      "register": "Register",
+      "title": "Register"
+    },
+    "validation": {
+      "code": "Verification Code",
+      "error": "Validation error",
+      "greeting": "Enter your verification code",
+      "submit": "Submit"
+    }
+  },
+  "validation": {
+    "email": "Please enter a valid email address",
+    "min": "Minimum length is ${min} characters",
+    "passwordMatch": "Passwords must match",
+    "required": "This field is required"
+  }
+}

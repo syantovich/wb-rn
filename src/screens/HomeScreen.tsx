@@ -1,24 +1,25 @@
 import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {useTranslation} from 'react-i18next';
 import {Button} from 'react-native-paper';
 
+import {useCommonTranslation} from '../hooks/useModuleTranslation';
 import {RootStackParamList} from '../navigation';
-import authService from '../services/AuthService';
+import {userStore} from '../store';
 
 const HomeScreen = observer(({navigation}: RootStackParamList) => {
-  const {t} = useTranslation();
-  console.log(authService.user, 'USER');
+  const {t} = useCommonTranslation();
+  const user = userStore.getUser();
+  console.log(user, 'USER');
   return (
     <View style={styles.container}>
       <Text>{t('screens.home.greeting')}</Text>
-      <Text>{JSON.stringify(authService.user, null, 2)}</Text>
-      <Text>{authService.user?.name}</Text>
-      <Button onPress={authService.loadUser}>
+      <Text>{JSON.stringify(user, null, 2)}</Text>
+      <Text>{user?.name}</Text>
+      <Button onPress={userStore.loadUser}>
         <Text>Load</Text>
       </Button>
-      {!authService.user && (
+      {!user && (
         <>
           <Button onPress={() => navigation.navigate('Login')}>
             {t('screens.home.login')}
@@ -28,7 +29,7 @@ const HomeScreen = observer(({navigation}: RootStackParamList) => {
           </Button>
         </>
       )}
-      {authService.user && !authService.user.isVerified && (
+      {user && !user.isVerified && (
         <Button onPress={() => navigation.navigate('Validation')}>
           {t('screens.home.validation')}
         </Button>
