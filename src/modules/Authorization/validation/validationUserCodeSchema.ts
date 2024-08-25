@@ -6,7 +6,7 @@ const validationUserCodeSchema = (t: TFunction) =>
     code: yup
       .string()
       .required(t('validation.required'))
-      .length(8, t('validation.length', {length: 8})),
+      .length(6, t('validation.length', {length: 6})),
   });
 
 export default validationUserCodeSchema;

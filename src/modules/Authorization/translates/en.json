@@ -48,13 +48,22 @@
       "code": "Verification Code",
       "error": "Validation error",
       "greeting": "Enter your verification code",
-      "submit": "Submit"
+      "submit": "Submit",
+      "resend": "Resend Code",
+      "successSent": "Verification code sent successfully"
     }
   },
   "validation": {
     "email": "Please enter a valid email address",
-    "min": "Minimum length is ${min} characters",
+    "invalid": "Invalid email or password",
+    "invalidEmail": "Invalid email",
+    "length": "Code must be exactly ${length} characters",
+    "loginFailed": "Login failed",
+    "logoutFailed": "Logout failed",
+    "password": "Password must be at least 8 characters long",
+    "registrationFailed": "Registration failed",
+    "required": "This field is required",
     "passwordMatch": "Passwords must match",
-    "required": "This field is required"
+    "min": "Password must be at least ${min} characters long"
   }
 }

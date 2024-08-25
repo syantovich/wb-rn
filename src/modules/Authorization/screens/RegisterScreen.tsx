@@ -39,7 +39,7 @@ const RegisterScreen = observer(
           text2: error,
         });
       } else {
-        userStore.setUser(data);
+        userStore.setAllUserInfo(data);
         navigation.navigate('Validation');
       }
     };
@@ -52,53 +52,47 @@ const RegisterScreen = observer(
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={registerValidationSchema(t)}>
-          {({handleSubmit}) => {
-            return (
-              <View style={[styles.formWrapper, commonStyles.maxWidth]}>
-                <Text style={styles.greeting}>
-                  {t('screens.register.greeting')}
-                </Text>
-                <FormikTextInput
-                  name="name"
-                  label={t('screens.register.name')}
-                  left={<Icon icon="account" />}
-                  style={styles.input}
-                />
-                <FormikTextInput
-                  name="email"
-                  label={t('screens.register.email')}
-                  left={<Icon icon="email" />}
-                  style={styles.input}
-                />
-                <FormikTextInput
-                  name="password"
-                  label={t('screens.register.password')}
-                  secureTextEntry
-                  left={<Icon icon="eye" />}
-                  style={styles.input}
-                />
-                <FormikTextInput
-                  name="confirmPassword"
-                  label={t('screens.register.confirmPassword')}
-                  secureTextEntry
-                  left={<Icon icon="eye" />}
-                  style={styles.input}
-                />
-                <CustomButton
-                  style={styles.button}
-                  onPress={handleSubmit}
-                  label={t('screens.register.register')}
-                />
-                <CustomButton
-                  style={styles.button}
-                  onPress={() => {
-                    navigation.navigate('Login');
-                  }}
-                  label={t('screens.register.login')}
-                />
-              </View>
-            );
-          }}
+          {({handleSubmit}) => (
+            <View style={[styles.formWrapper, commonStyles.maxWidth]}>
+              <Text style={styles.greeting}>
+                {t('screens.register.greeting')}{' '}
+              </Text>
+              <FormikTextInput
+                name="name"
+                label={t('screens.register.name')}
+                left={<Icon icon="account" />}
+              />
+              <FormikTextInput
+                name="email"
+                label={t('screens.register.email')}
+                left={<Icon icon="email" />}
+              />
+              <FormikTextInput
+                name="password"
+                label={t('screens.register.password')}
+                secureTextEntry
+                left={<Icon icon="eye" />}
+              />
+              <FormikTextInput
+                name="confirmPassword"
+                label={t('screens.register.confirmPassword')}
+                secureTextEntry
+                left={<Icon icon="eye" />}
+              />
+              <CustomButton
+                style={styles.button}
+                onPress={handleSubmit}
+                label={t('screens.register.register')}
+              />
+              <CustomButton
+                style={styles.button}
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+                label={t('screens.register.login')}
+              />
+            </View>
+          )}
         </Formik>
       </KeyboardAvoidingView>
     );
@@ -107,27 +101,14 @@ const RegisterScreen = observer(
 
 const makeStyles = (theme: MD3Theme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-
+    container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
     formWrapper: {
       flexDirection: 'column',
       gap: 10,
       paddingHorizontal: 20,
-      rowGap: 20,
       columnGap: 20,
     },
-
-    input: {
-      marginBottom: 20,
-    },
-
-    button: {
-      marginTop: 20,
-    },
+    button: {marginTop: 20},
     greeting: {
       fontSize: 32,
       fontWeight: 'bold',

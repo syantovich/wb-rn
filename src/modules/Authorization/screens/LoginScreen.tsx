@@ -36,7 +36,7 @@ const LoginScreen = observer(
           text2: error,
         });
       } else {
-        userStore.setUser(data);
+        userStore.setAllUserInfo(data);
       }
     };
 
@@ -58,14 +58,12 @@ const LoginScreen = observer(
                   name="email"
                   label={t('screens.login.email')}
                   left={<Icon icon="account" />}
-                  style={styles.input}
                 />
                 <FormikTextInput
                   name="password"
                   label={t('screens.login.password')}
                   secureTextEntry
                   left={<Icon icon="eye" />}
-                  style={styles.input}
                 />
                 <CustomButton
                   style={styles.button}
@@ -98,16 +96,9 @@ const makeStyles = (theme: MD3Theme) =>
 
     formWrapper: {
       flexDirection: 'column',
-      gap: 10,
-      paddingHorizontal: 20,
-      rowGap: 20,
-      columnGap: 20,
+      paddingHorizontal: 10,
+      gap: 0,
     },
-
-    input: {
-      marginBottom: 20,
-    },
-
     button: {
       marginTop: 20,
     },

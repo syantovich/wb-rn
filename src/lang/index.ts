@@ -9,8 +9,11 @@ const languages = [{code: ELanguages.EN, name: 'English'}];
 const languagesCodes = Object.keys(ELanguages) as ELanguages[];
 
 const resources = languagesCodes.reduce(
-  (acc: {[key: string]: {translation: LanguageTranslation}}, code) => {
-    acc[code] = {translation: combinedTranslations[code]};
+  (acc: {[key: string]: {translation: LanguageTranslation}}, originalCode) => {
+    const code = originalCode.toLowerCase() as ELanguages;
+    acc[code] = {
+      translation: combinedTranslations[code],
+    };
     return acc;
   },
   {} as {[key: string]: {translation: LanguageTranslation}},

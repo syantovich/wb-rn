@@ -18,4 +18,6 @@ export const translations: LanguagesModule<typeof en> = {
 
 export const logoutFunc = authService.logout;
 
+export const getInfoAboutLoggedInUser = authService.me;
+
 export const moduleName = authModuleName;

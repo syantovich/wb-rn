@@ -44,7 +44,7 @@ class AuthService {
     t: (key: string) => string,
   ): Promise<NetworkResponse<string | null>> => {
     try {
-      await httpClient.get('/auth/logout');
+      await httpClient.post('/auth/logout');
       return new NetworkResponse(null);
     } catch (error: any) {
       return new NetworkResponse(t('errors.logoutFailed'));
@@ -73,8 +73,16 @@ class AuthService {
       await httpClient.post('/verification/validate', {code});
       return new NetworkResponse(null);
     } catch (error: any) {
-      console.log(error, 'error');
       return new NetworkResponse(t('errors.failedValidateVerification'));
+    }
+  };
+
+  me = async (): Promise<NetworkResponse<IAuthResponse['person'] | null>> => {
+    try {
+      const response = await httpClient.get<IAuthResponse>('/auth/me');
+      return new NetworkResponse(response.data.person);
+    } catch (error: any) {
+      return new NetworkResponse(null);
     }
   };
 }

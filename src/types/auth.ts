@@ -22,5 +22,5 @@ export interface IAuthTokens {
 
 // Основной интерфейс ответа аутентификации, включающий все вышеуказанные интерфейсы
 export interface IAuthResponse extends IAuthTokens {
-  user: IUser;
+  person: IUser;
 }

@@ -1,5 +1,14 @@
 {
   "errors": {
     "logout": "Failed to logout"
+  },
+  "screens": {
+    "home": {
+      "greeting": "Welcome to the Home Screen",
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "validation": "Validate Account"
+    }
   }
 }

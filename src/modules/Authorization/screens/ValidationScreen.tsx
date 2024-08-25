@@ -41,19 +41,31 @@ const ValidationScreen = ({navigation}: RootStackParamList) => {
     setIsLoading(false);
   }, [t]);
 
-  const onSubmit = async (values: typeof initialValues) => {
-    const {error} = await authService.validateVerificationCode(values.code, t);
-    if (error) {
-      Toast.show({
-        type: 'error',
-        text1: t('screens.validation.error'),
-        text2: error,
-      });
-    } else {
-      userStore.verifyUser();
-      navigation.navigate('Home');
-    }
-  };
+  const onSubmit = useCallback(
+    async (values: typeof initialValues) => {
+      const {error} = await authService.validateVerificationCode(
+        values.code,
+        t,
+      );
+      if (error) {
+        Toast.show({
+          type: 'error',
+          text1: t('screens.validation.error'),
+          text2: error,
+        });
+      } else {
+        userStore.verifyUser();
+        navigation.navigate('Home');
+      }
+    },
+    [navigation, t],
+  );
+  const onFullPin = useCallback(
+    (value: string) => {
+      onSubmit({code: value});
+    },
+    [onSubmit],
+  );
 
   useEffectOnRender(sendCode);
 
@@ -68,12 +80,7 @@ const ValidationScreen = ({navigation}: RootStackParamList) => {
             <Text style={styles.greeting}>
               {t('screens.validation.greeting')}
             </Text>
-            <FormikPinInput
-              length={8}
-              name="code"
-              style={styles.input}
-              placeholder={t('screens.validation.code')}
-            />
+            <FormikPinInput length={6} name="code" onFullPin={onFullPin} />
             {touched.code && errors.code && (
               <Text style={styles.errorText}>{errors.code}</Text>
             )}
@@ -106,9 +113,6 @@ const styles = StyleSheet.create({
   },
   formWrapper: {
     width: '80%',
-  },
-  input: {
-    marginBottom: 20,
   },
   button: {
     marginTop: 20,

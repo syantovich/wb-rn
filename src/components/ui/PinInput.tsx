@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import Clipboard from '@react-native-clipboard/clipboard';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   TextInput,
@@ -6,30 +7,35 @@ import {
   TextInputKeyPressEventData,
   NativeSyntheticEvent,
 } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 
-interface PinInputProps {
+export interface PinInputProps {
   length: number;
   onChange: (pin: string) => void;
-  value: string;
+  values: (string | number)[];
   style?: object;
   placeholder?: string;
+  onFullPin?: (pin: string) => void;
 }
 
 const PinInput: React.FC<PinInputProps> = ({
   length,
   onChange,
-  value,
+  values,
   style,
   placeholder,
+  onFullPin,
 }) => {
   const inputs = useRef<Array<TextInput | null>>([]);
 
   const handleChange = (text: string, index: number) => {
-    const newPin = inputs.current
-      .map((input, i) => (i === index ? text : input?.props.value))
+    const newPin = values
+      .map((char, i) => (i === index ? text : char))
       .join('');
     onChange(newPin);
+
+    if (newPin.length === length) {
+      onFullPin?.(newPin);
+    }
 
     if (text && index < length - 1) {
       inputs.current[index + 1]?.focus();
@@ -40,26 +46,20 @@ const PinInput: React.FC<PinInputProps> = ({
     e: NativeSyntheticEvent<TextInputKeyPressEventData>,
     index: number,
   ) => {
-    if (
-      e.nativeEvent.key === 'Backspace' &&
-      index > 0 &&
-      !inputs.current[index]?.props.value
-    ) {
+    if (e.nativeEvent.key === 'Backspace' && index > 0) {
       inputs.current[index - 1]?.focus();
     }
   };
 
-  const handlePaste = async () => {
-    const pastedText = await Clipboard.getString();
-    if (/^\d+$/.test(pastedText) && pastedText.length === length) {
-      pastedText.split('').forEach((char: string, i: number) => {
-        if (inputs.current[i]) {
-          inputs.current[i]?.setNativeProps({text: char});
-        }
-      });
-      onChange(pastedText);
-    }
-  };
+  useEffect(() => {
+    const handlePaste = async () => {
+      const pastedText = await Clipboard.getString();
+      if (/^\d+$/.test(pastedText) && pastedText.length === length) {
+        onChange(pastedText);
+      }
+    };
+    handlePaste();
+  }, [length, onChange]);
 
   return (
     <View style={[styles.container, style]}>
@@ -72,8 +72,7 @@ const PinInput: React.FC<PinInputProps> = ({
           maxLength={1}
           onChangeText={text => handleChange(text, index)}
           onKeyPress={e => handleKeyPress(e, index)}
-          onFocus={handlePaste}
-          value={value[index] || ''}
+          value={`${values[index] || ''}`}
           placeholder={placeholder}
         />
       ))}
@@ -93,7 +92,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     width: 40,
-    height: 40,
+    height: 50,
+    borderRadius: 15,
   },
 });
 

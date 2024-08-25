@@ -4,11 +4,11 @@ import Toast from 'react-native-toast-message';
 
 import {AsyncStorageKeys} from '../constants/config';
 import storage from '../constants/storage';
-import {logoutFunc} from '../modules/Authorization';
+import {getInfoAboutLoggedInUser, logoutFunc} from '../modules/Authorization';
 import {IAuthResponse} from '../types/auth';
 
 class UserStore {
-  private user: IAuthResponse['user'] | null = null;
+  private user: IAuthResponse['person'] | null = null;
   private token: string | null = null;
   private refreshToken: string | null = null;
   isLoading: boolean = false;
@@ -22,19 +22,16 @@ class UserStore {
   loadUser = async () => {
     try {
       const data = await storage.load({key: AsyncStorageKeys.USER});
-      this.user = data.person;
-      this.token = data.token;
-      this.refreshToken = data.refreshToken;
-    } catch {
-      this.user = null;
-      this.token = null;
-      this.refreshToken = null;
-    }
+      if (data) {
+        this.setAllUserInfo(data);
+        this.updateUserInfo();
+      }
+    } catch (error) {}
   };
 
-  setUser = (data: IAuthResponse | null): void => {
+  setAllUserInfo = (data: IAuthResponse | null): void => {
     if (data) {
-      this.user = data.user;
+      this.user = data.person;
       this.token = data.token;
       this.refreshToken = data.refreshToken;
       storage.save({
@@ -72,15 +69,32 @@ class UserStore {
     const {error} = await logoutFunc(t);
     if (!error) {
       await storage.remove({key: AsyncStorageKeys.USER});
-      this.user = null;
-      this.token = null;
-      this.refreshToken = null;
+      this.setAllUserInfo(null);
     } else {
       Toast.show({
         type: 'error',
         text1: t('errors.logout'),
       });
     }
+  };
+
+  updateUserInfo = async () => {
+    const {error, data} = await getInfoAboutLoggedInUser();
+    if (!error) {
+      data ? this.setUser(data) : this.setAllUserInfo(null);
+    }
+  };
+
+  setUser = (user: IAuthResponse['person']) => {
+    this.user = user;
+    storage.save({
+      key: AsyncStorageKeys.USER,
+      data: {
+        person: user,
+        token: this.token,
+        refreshToken: this.refreshToken,
+      },
+    });
   };
 }
 

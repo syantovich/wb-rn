@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {
   TextInput as PaperTextInput,
   TextInputProps as PaperTextInputProps,
   Text,
 } from 'react-native-paper';
-import {View, StyleSheet} from 'react-native';
 
 export interface TextInputProps
   extends Omit<PaperTextInputProps, 'onChangeText'> {
@@ -24,14 +24,14 @@ const TextInput: React.FC<TextInputProps> = ({
   ...rest
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <PaperTextInput
         label={label}
         value={value}
         onChangeText={onChangeText}
         error={error}
-        style={styles.input}
         {...rest}
+        style={styles.input}
       />
       {error && errorMessage && (
         <Text style={styles.errorText}>{errorMessage}</Text>
@@ -42,16 +42,16 @@ const TextInput: React.FC<TextInputProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
     maxWidth: 400,
     width: '100%',
+    minHeight: 80,
+    marginBottom: 5,
   },
   input: {
-    height: 50,
+    marginBottom: 5,
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
   },
 });
 

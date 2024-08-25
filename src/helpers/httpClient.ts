@@ -1,13 +1,13 @@
 import axios from 'axios';
+import i18n from 'i18next';
 import {Platform} from 'react-native';
 
-import {commonTranslationModuleName} from '../constants/config';
-import useModuleTranslation from '../hooks/useModuleTranslation';
 import {userStore} from '../store';
 import {IAuthResponse} from '../types/auth';
 
 const BASE_URL = 'http://10.0.2.2:3000/api/v1';
 
+const t = i18n.t.bind(i18n);
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -29,7 +29,6 @@ instance.interceptors.request.use(async config => {
 instance.interceptors.response.use(
   response => response,
   async error => {
-    const {t} = useModuleTranslation(commonTranslationModuleName);
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -42,7 +41,7 @@ instance.interceptors.response.use(
           },
         );
         const userInfo = response.data;
-        userStore.setUser(userInfo);
+        userStore.setAllUserInfo(userInfo);
         originalRequest.headers.Authorization = `Bearer ${userInfo.token}`;
         return instance(originalRequest);
       } catch (refreshError) {

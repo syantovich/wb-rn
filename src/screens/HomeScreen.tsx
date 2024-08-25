@@ -10,7 +10,6 @@ import {userStore} from '../store';
 const HomeScreen = observer(({navigation}: RootStackParamList) => {
   const {t} = useCommonTranslation();
   const user = userStore.getUser();
-  console.log(user, 'USER');
   return (
     <View style={styles.container}>
       <Text>{t('screens.home.greeting')}</Text>
@@ -28,6 +27,11 @@ const HomeScreen = observer(({navigation}: RootStackParamList) => {
             {t('screens.home.register')}
           </Button>
         </>
+      )}
+      {user && (
+        <Button onPress={() => userStore.logout(t)}>
+          {t('screens.home.logout')}
+        </Button>
       )}
       {user && !user.isVerified && (
         <Button onPress={() => navigation.navigate('Validation')}>
